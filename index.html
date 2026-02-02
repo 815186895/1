@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>主页--惠州城市职业学院</title>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+			
+		</script>
+		
+		<script>
+			/* 获取用户名与密码 */
+			$(document).ready(function(){
+			    $.post("api/checkLogin.php",//检查用户登录状态
+				{},
+			       function(data,status){
+			           if(data=='404'){
+						  location.href='login.html'; //未登陆用户,必须登录；
+					   }else{
+						   //已登陆
+						   $.post("/api/getUserInfo.php",
+							{},
+							function(data,status){
+								console.log(data);
+								if(data=='404'){  //用户未查到登录用户的信息
+									location.href='login.html';
+								}else{
+									var userInfo=JSON.parse(data);//把后端返回的JSON转回来
+									$("#user_account").text("账号："+ userInfo['user_name']);
+									$("#user_name").text("姓名："+ userInfo['real_name']);
+									$("#user_depart").text("部门："+ userInfo['department']);
+									$("#headpic").attr('src',userInfo['headpic'])
+									
+								}
+							}
+						   );
+						   //发起请求，获取常见应用栏的内容
+						   $.post('/api/apps.php',
+								{},
+								function(data,status){
+									if(data=='404'){      //后端没有应用数据返回
+										
+									}else{
+										var apps=JSON.parse(data);
+										//把数据渲染到常见应用栏中
+										var leng=apps.length;
+										for(var i=0;i<leng;i++){
+											
+											if(apps[i].title.length<=4){
+												var items="<a href=' " + apps[i].url + "'><img src='" + apps[i].icon +"' class='icon'/>";
+												items+="<div class='app_title'>" + apps[i].title + "</div></a>";
+											}else{
+												var items="<a href=' " + apps[i].url + "' style='width:160px;'><img src='" + apps[i].icon +"' class='icon'/>";
+												items+="<div class='app_title' style='width:160px;'>" + apps[i].title + "</div></a>";
+											}
+											
+											$("#app_content").append(items);
+										}
+									}
+								}
+								
+							);
+						   //发起请求，获取学校工作备忘录
+							$.post('/api/getBannerList.php',
+							{
+								cname:'学校工作备忘录',
+								num:5,
+							},
+							function(data,status){
+								// console.log(data);
+								var noticeList=JSON.parse(data);
+								var leng=noticeList.length;
+								for(var i=0;i<leng;i++){
+									var item="<li><a href='detail.html?nid=" + noticeList[i].id + "' target='_blank'>"+noticeList[i].title +"</a><label>" + formatDate(noticeList[i].pubtime) +"</label></li>";
+									$("#school_memorandum_content").append(item);
+							   }
+							}
+						);
+						//学校公告栏目
+						$.post('/api/getBannerList.php',
+							{
+								cname:'学校公告数据',
+								num:5,
+							},
+						function(data,status){
+							// console.log(data);
+							var noticeList=JSON.parse(data);
+							var leng=noticeList.length;
+							for(var i=0;i<leng;i++){
+								var item="<li><a href='detail.html?nid=" + noticeList[i].id + "' target='_blank'>"+ formatTitle(noticeList[i]['title'],25) +"</a><label>" + formatDate(noticeList[i].pubtime) +"</label></li>";
+								$("#school_announcement_content").append(item);
+								}
+							}
+						)
+						//部门工作备忘录栏目
+						$.post('/api/getBannerList.php',
+							{
+								cname:'部门工作备忘录',
+								num:5,
+							},
+							function(data,status){
+								// console.log(data);
+								var noticeList=JSON.parse(data);
+								var leng=noticeList.length;
+								for(var i=0;i<leng;i++){
+									var item="<li><a href='detail.html?nid=" + noticeList[i].id + "' target='_blank'>"+noticeList[i].title +"</a><label>" + formatDate(noticeList[i].pubtime) +"</label></li>";
+									$("#department_memorandum_content").append(item);
+							   }
+							}
+						);
+						//制度与流程栏目
+						$.post('/api/getBannerList.php',
+							{
+								cname:'制度流程数据',
+								num:5,
+							},
+							function(data,status){
+								// console.log(data);
+								var noticeList=JSON.parse(data);
+								var leng=noticeList.length;
+								for(var i=0;i<leng;i++){
+									var item="<li><a href='detail.html?nid=" + noticeList[i].id + "' target='_blank'>"+ formatTitle(noticeList[i]['title'],16) +"</a><label>" + formatDate(noticeList[i].pubtime) +"</label></li>";
+									$("#system_process_content").append(item);
+							   }
+							}
+						);
+						//常用表格栏目
+							$.post('/api/getBannerList.php',
+								{
+									cname:'常用表格数据',
+									num:4,
+								},
+							function(data,status){
+								// console.log(data);
+								var noticeList=JSON.parse(data);
+								var leng=noticeList.length;
+								for(var i=0;i<leng;i++){
+									var item="<li><a href='detail.html?nid=" + noticeList[i].id + "' target='_blank'>"+ formatTitle(noticeList[i]['title'],16) +"</a><label>" + formatDate(noticeList[i].pubtime) +"</label></li>";
+									$("#userful_forms_content").append(item);
+									}
+								}
+							)
+					   }
+			       });
+			});
+		//定义时间字符串裁剪函数
+ 		function formatDate(dateString){
+			return dateString.substring(2,10);
+		}
+		  
+		
+/* 		function cropDateTime(str){
+			str=str.substring(2,10);
+			return str
+		} 
+		formatTitle(noticeList[i]['title'],12)*/
+				//标题长度截取函数
+		function formatTitle(titleString,leng){
+			if(titleString.length>leng){
+				return titleString.substring(0,leng)+"...";
+			}else{
+				return titleString;
+			}
+			
+		}
+
+		</script>
+		<link rel="stylesheet" href="CSS.css" type="text/css">
+	</head>
+	<body>
+		<div class="logo-banner">
+			<div id="logo-bar">
+				<img src="pics/layout_set_logo.jpg"/>
+			</div>
+			<div id="navigate-bar">
+				<a  href="#" class="nav-itme">主页(教师)</a>
+				<a  href="#" class="nav-itme">办事大厅</a>
+				<a  href="#" class="nav-itme">招生系统</a>
+				<a  href="#" class="nav-itme">学工系统</a>
+				<a  href="#" class="nav-itme">人事系统</a>
+				<a  href="#" class="nav-itme">绩效系统</a>
+				<a  href="#" class="nav-itme">电子邮件</a>
+			</div>
+		</div>
+		<!-- Banner栏 -->
+		<div id="banner">
+			<img width="100%" src="pics/banner.jpg">
+		</div>
+		<!-- 内容栏 -->
+		<div id="main">
+			<!-- 左栏 -->
+			<div id="main_left">
+				<!-- 用户信息 -->
+				<div id="user_info">
+					<div class="columu_title">个人信息</div>
+					<table cellpadding="0" cellspacing="1">
+						<tr>
+							<td rowspan="3" id="head_pic">
+								<img src="" id="headpic">
+							</td>
+							<td id="user_account"></td>
+						</tr>
+						<tr>
+							<td id="user_name"></td>
+						</tr>
+						<tr>
+							<td id="user_depart"></td>
+						</tr>
+					</table>
+					<div id="btns">
+						<a href="#" class="user_btn">个人信息</a>
+						<a href="#" class="user_btn">修改密码</a>
+						<a href="#" class="user_btn">注销平台</a>
+					</div>
+				</div>
+				<!-- 应用栏 -->
+				<div id="common_app">
+					<div class="columu_title">常见应用</div>
+					<div id="app_content"></div>
+					
+				</div>
+			
+				<!-- 图书栏 -->
+				<div id="library">
+					<div class="columu_title">图书借阅</div>
+					<div id="library_content">
+						<div id="librart_item">已借阅 <label class="red_txt">0</label></div>
+						<div id="librart_item">已 <label class="red_txt">0</label>本</div>
+						<div id="librart_item">7天内到期<label class="red_txt">0</label>本</div>
+					</div>
+				</div>
+				<!-- 邮箱栏 -->
+				<div id="library">
+					<div class="columu_title">电子邮箱</div>
+					<div id="library_content">
+						<div id="librart_item">收件箱（共<label class="red_txt">0</label>封未读）</div>
+					</div>
+				</div>
+			</div>	
+			<!-- 中栏 -->
+			<div id="main_center">
+				<!--校园备忘录-->
+				<div id="scholl_memorandum">
+					<div class="columu_title_7">学校工作备忘录 <label class="more"> <a href="moreNotice.html?cid=1&pid=1" target="_blank">更多>></a></label></div>
+					<div class="memorandum_content" id="school_memorandum_content"></div>
+				</div>
+				
+				<!--学校公告-->
+				<div id="scholl_memorandum">
+					<div class="columu_title_7">学校公告 <label class="more"> <a href="moreNotice.html?cid=2&pid=1" target="_blank">更多>></a></label></div>
+					<div class="memorandum_content" id="school_announcement_content"></div>
+				</div>
+				
+			</div>
+			<!-- 右栏 -->
+			<div id="main_right">
+				<!-- 部门工作备忘录 -->
+				<div id="scholl_memorandum">
+					<div class="columu_title_7">部门工作备忘录 <label class="more"> <a href="moreNotice.html?cid=3&pid=1" target="_blank">更多>></a></label></div>
+					<div class="memorandum_content" id="department_memorandum_content"></div>
+				</div>
+				
+				<!-- 制度与流程 -->
+				<div id="scholl_memorandum">
+					<div class="columu_title_7">制度与流程 <label class="more"> <a href="moreNotice.html?cid=4&pid=1" target="_blank">更多>></a></label></div>
+					<div class="memorandum_content" id="system_process_content"></div>
+				</div>
+				
+				<!-- 常用表格 -->
+				<div id="scholl_memorandum">
+					<div class="columu_title_7">常用表格 <label class="more"> <a href="moreNotice.html?cid=5&pid=1" target="_blank">更多>></a></label></div>
+					<div class="memorandum_content" id="userful_forms_content"></div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<!-- 版权信息栏 -->
+		<div id="copy_right">版权所有 Copyright(C) 惠州城市职业学院 粤ICP备15007603号 地址：广东省惠州市惠城区三栋镇福长岭明德路1号 邮编：516025</br>
+		
+		技术支持：联奕科技有限公司</div>
+	</body>
+</html>

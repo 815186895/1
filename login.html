@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>惠州城市职业学院——身份认证平台</title>
+	</head>
+	
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+		
+
+	</script>
+	
+	<script>
+		
+		/* 获取用户名与密码 */
+		$(document).ready(function(){
+		  $("#btn_login").click(function(){
+		   var username=$("#username").val();
+		   var password=$("#password").val();
+		   /*把用户名与密码发送给后端,并接收放回的结果*/
+		    $.post("api/login.php",
+		       {
+		           yhm:username,
+				   mm:password
+		       },
+		       function(data,status){
+		           if(data=='404'){
+					   var msg="<tr><td colspan='3'><div class='err-div'>账号密码错误.</div></td></tr>"
+					   $("#user-amount").before(msg);
+				   }else{
+					   location.href='index.html'
+				   }
+		       });
+		  });
+		});
+		
+	</script>
+	
+	<style type="text/css">
+
+		/* 用户登录框的位置与外观 */
+		#user_login_box{
+			position: absolute; /* 绝对定位 */
+			left:900px;
+			top:200px;
+		}
+		/* 登录表格的外观 */
+		table{
+			background-color: white;
+			border-radius: 15px;
+			width: 300px;
+		}
+		td{
+			height: 60px;
+			line-height: 50px;
+			padding-left: 20px;
+			font-size: 0.8em;
+		}
+		/* 登录标题格的外观 */
+		#login_title{
+			background:linear-gradient(#0c35eb,#071d7f);	/* 背景颜色 */
+			color: white;				/* 文字白色 */
+			text-align: center; 		/* 居中对齐 */
+			height: 40px;
+			line-height: 40px;
+			font-size: 0.8em; 			/* 文字大小 */
+			letter-spacing: 0.5em;		/* 文字间距 */
+			font-weight: 800;			/* 文字加粗 */
+			border-top-left-radius: 15px;
+			border-top-right-radius: 15px;
+			
+		}
+		/* 登录的问题 */
+		#login_question{
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			text-align: center;
+		}
+		/* 账号密码输入框 */
+		#username,#password{
+			
+			height: 35px;
+			width: 180px;
+			border: solid 1px #eedbd1;
+		}
+		/* 验证码输入框 */
+		#vercode{
+			height: 30px;
+			width: 120px;
+			border: solid 1px #eedbd1;
+		}
+		/* 登录按钮 */
+		#btn_login{
+			background: linear-gradient(#0c35eb,#071d7f);
+			color: white;
+			width: 100px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			border: #071d7f solid 0px;
+			border-radius: 5px;
+			letter-spacing: 0.5em;
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+		/* 重置按钮 */
+		#btn_reset{
+			background: #d5d5d5;
+			color: blue;
+			width: 100px;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			border: blue solid 0px;
+			border-radius: 5px;
+			letter-spacing: 0.5em;
+			margin-left:15px;
+			margin-right:15px;
+		}
+		a{
+			color: black;
+			text-decoration: none;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		#logo_banner{
+			padding-left: 200px;
+		}
+		body{
+			padding: 0px;
+			margin: 0px;
+		}
+		#bj_pic{
+			height: 530px;
+			width: 100%;
+		}
+		
+		.code {
+		width: 70px;
+		height: 40px;
+		background-color: pink;
+		display: inline-block;
+		text-align: center;
+		line-height: 40px;
+		letter-spacing: 5px;
+		font-style: italic;
+		font-size:1.2em;
+		font-weight:700;
+		}
+		.err-div{
+			width:80%;
+			height:25px;
+			line-height:25px;
+			text-align:center;
+			background-color:#ffd3d3;
+			border:solid 1px red;
+			color:red;
+			margin: 0 auto;
+		}
+		#bg{
+		width:500px;
+		}
+		#td_li{
+			width:500px;
+			height: 10px;
+			line-height: 0px;
+			padding-left: 0px;
+		}
+		.left{
+			float:left;
+		}
+		.right{
+			float:right;
+		}
+		.center_div{
+			width:1000px;
+			margin-left:auto;
+			margin-right:auto;
+		}
+		.td_tp{
+			padding:10px 20px 0px 0px;
+		}
+		.wz_a{
+			font-size:20px;
+			font-weight:800;
+			color:#0c35eb;
+			padding:20px 0px 0px 0px;
+		}
+		.wz_copyright{
+			margin-top: 80px;
+			padding-top: 150px;
+			text-align: center;
+			font-size: 12px;
+		}
+		
+	</style>
+	<body  onload="createCode()">  <!--onload当页面或者图像加载完之后立即执行-->
+		<!-- login图片栏 -->
+		<div id="logo_banner">
+			<img src="pics/logo.jpg" />
+		</div>
+		<!-- login登录背景栏 -->
+		<div id="logo_bgbanner">
+			<img id="bj_pic" src="pics/banner1.jpg" />
+		</div>
+		<!-- 用户登录框 -->
+		<div id="user_login_box">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td id="login_title" colspan="3">数字校园门户登录</td>
+				</tr>
+				<tr id='user-amount'></tr>
+					
+				<tr>
+				
+					<td>账号:</td>
+					<td colspan="2">
+						<input type="text" name="username" id="username" placeholder="请输入用户名"/>
+					</td>
+				</tr>
+				<tr>
+					<td>密码:</td>
+					<td colspan="2">
+						<input type="password" name="password" id="password" placeholder="请输入密码"/>
+					</td>
+				</tr>
+				<tr>
+					<td style=width: 80px">验证码</td>
+					<td>
+						<input type="text" name="vercode" id="vercode" placeholder="请输入验证码"/>
+					</td>
+					<td style="padding-left: 0px;">
+						<div class="code" onclick="createCode()"></div>
+						<!-- 验证码图片框 -->
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" id="logo_button">
+						<input type="button" name="btn_login" id="btn_login" value="登录"/>
+						<input type="button" name="btn_reset" id="btn_reset" value="重置"/>
+					</td>
+				</tr>
+				<tr>
+					<td id="login_question" colspan="3">
+						<a href="#">忘记密码？</a>
+						<a href="#">常见问题</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="center_div">
+			<div class="left">
+				<table id="bg">
+							<tr>
+								<td class="wz_a">使用说明</td>
+								
+							</tr>
+							<tr>
+								<td rowspan="3" class="td_tp"><img src="pics/book.png"></td>
+								<td colspan="3" id="td_li">办事大厅 | 教务系统 | 学工系统</td>
+							</tr>
+							<tr>
+								<td colspan="3" id="td_li">电子邮件 | 人事系统 | 迎新系统</td>
+							</tr>
+							<tr>
+								<td colspan="3" id="td_li">绩效系统 | 招生系统</td>
+							</tr>
+						</table>
+			</div>
+			<div class="right">
+				<table id="bg">
+							<tr>
+								<td class="wz_a">帮助电话</td>
+								
+							</tr>
+							<tr>
+								<td rowspan="3" class="td_tp"><img src="pics/phone.png"></td>
+								<td colspan="3" id="td_li">3266545—425 张老师 统一信息门户、统一身份认证平台</td>
+							</tr>
+							<tr>
+								<td colspan="3" id="td_li">3266545—425 张老师 教务系统</td>
+							</tr>
+							<tr>
+								<td colspan="3" id="td_li">3266545—425 张老师 学工系统</td>
+							</tr>
+						</table>
+			</div>
+		</div>
+		<div class="wz_copyright">
+		
+			版权所有 Copyright(C) 惠州城市职业学院 粤ICP备15007603号 地址：广东省惠州市惠城区三栋镇福长岭明德路1号 邮编：516025<br>技术支持：联奕科技有限公司
+		
+		</div>
+		
+	
+	<script>
+	// 生成验证码的函数
+	var code;
+	function createCode() {
+	code = "";            //验证码的初始值
+	var codeLength = 4;   //验证码的长度
+	// 验证码的组成成分
+	var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+	for(var i=0;i<codeLength;i++){
+	// 获取随机数：下标
+	var charNum = Math.floor(Math.random()*10);
+	// 验证码
+	code += codeChars[charNum];
+	        }
+	document.getElementsByClassName("code")[0].innerText = code;
+	    }
+	// 验证验证码的函数
+	function checkCode() {
+	// 获取输入的值
+	var inputCode = document.getElementsByTagName("input")[0].value;
+	// 判断验证码是否输入正确
+	if (inputCode.length<=0){
+	alert("请输入验证码！");
+	        }else if(inputCode.toUpperCase() != code.toUpperCase()){
+	alert("验证码输入有误！");
+	// 更新验证码
+	createCode();
+	// 清空输入框
+	document.getElementsByTagName("input")[0].value = "";
+	        }else{
+	alert("验证码输入正确")
+	        }
+	    }
+	</script>	
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="CSS.css" rel="stylesheet" type="text/css"/>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	    <script>
+			$(document).ready(function(){
+				var prop=location.search;
+				prop=prop.replace("?","");
+				var nid=prop=prop.split("=")[1];
+				nid=Number(nid);
+				
+				$.post("/api/getNoticeDetail.php",
+				    {
+						id:nid
+					},
+					function(data,status){
+						console.log(data);
+						
+						var notice=JSON.parse(data);
+						$("#notice_title").text(notice['title']);
+						$("#notice_type").text(notice['type']);
+						$("#notice_time").text(notice['pubtime']);
+						$("#notice_publisher").text(notice['publisher']);
+						$("#notice_department").text(notice['department']);
+						$("#notice_content").text(notice['content']);
+					}
+				);
+			});
+		</script>
+	</head>
+	
+	<body>
+		<!-- logo栏 -->
+	<div class="logo-banner">
+		<div id="logo-bar">
+			<img src="pics/layout_set_logo.jpg"/>
+		</div>
+		<div id="navigate-bar">
+			<a class="nav-itme">主页(教师)</a>
+			<a class="nav-itme">办事大厅</a>
+			<a class="nav-itme">招生系统</a>
+			<a class="nav-itme">学工系统</a>
+			<a class="nav-itme">人事系统</a>
+			<a class="nav-itme">绩效系统</a>
+			<a class="nav-itme">电子邮件</a>
+		</div>
+	</div>
+	<!-- Banner栏 -->
+	<div id="banner">
+		<img width="100%" src="pics/banner2.png">
+	</div>
+	<div id="content1">
+		<div id="notice_title"></div>
+		<div id="notice_type"></div>
+		<div id="notice_prom">
+			<label id='notice_time'></label>
+			<label id='notice_publisher'></label>
+			<label id='notice_department'></label>
+		</div>
+		<div id="notice_content"></div>
+	</div>
+	</body>
+</html>

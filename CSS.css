@@ -1,0 +1,523 @@
+.logo-banner{
+				width:100%;
+				display:flex;
+				flex-direction: row;
+				background: linear-gradient(rgba(177,216,250,0.5),rgba(177,216,250,0.0));
+			}
+			#logo-bar{
+				margin-left:150px;
+				height:110px;
+				
+			}
+			#navigate-bar{
+				height:110px;
+				line-height:110px;
+			}
+			.nav-itme {
+				margin-left:20px;
+				text-decoration:none;
+				color: #000000;
+			}
+			/* 内容栏 */
+			#main{
+				width: 90%;
+				margin: 10px auto;/*左右居中*/
+				display: flex;/*弹性布局*/
+				flex-direction: row;/*排成一行*/
+			}
+			/* 版权栏 */
+			#copy_right{
+				height: 40px;
+				font-size: 0.9em;
+				color: #424242;
+				text-align: center;
+			}
+			/* 左内容栏 */
+			#main_left,
+			#left_content{
+				width: 27%;
+				
+			}
+			/* 中内容栏 */
+			#main_center{
+				width: 42%;
+				margin-left: 10px;
+			}
+			/* 右边内容栏 */
+			#main_right{
+				width: 30%;
+				margin-left:10px;
+			
+			}
+			#right_content{
+				width: 100%;
+				margin-left:10px;
+			}
+			/* 个人信息栏 */
+			#user_info,
+			#common_app,
+			#library,
+			#scholl_memorandum{
+				width: 100%;
+				border: lightgray solid 1px;
+				background-color: white;
+				/* padding-left: 8px; */
+				margin-bottom: 10px;
+			}
+			table{
+				width: 90%;
+				height: 120px;
+				background-color: lightgrey;
+				margin: 5px auto;
+				font-size: 0.9em;
+				color: #545454;
+			}
+			td{
+				background-color: white;
+				padding-left: 5px;
+			}
+			#head_pic{
+				width: 35%;
+			}
+			/* 栏目标题 */
+			.columu_title,
+			.columu_title_7{
+				width: 90%;
+				height: 30px;
+				background-image: url("pics/title_bg01.jpg");/*给这个样式添加图片*/
+				background-repeat: no-repeat;/*图片只显示一次*/
+				margin: 10px auto;/*上下距离*/
+				border-bottom: solid 1px lightgray;/*下横线*/
+				color: #0a1aff;
+				font-weight: 600;
+				padding-left: 20px;
+			}
+			.columu_title_7{
+				background-size: 130px 30px;    /*设置背景图片的大小*/
+			}
+			#btns{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;/*各内容之间用空白的空格隔开*/
+				margin-top: 30px;
+				margin-bottom: 15px;
+			}
+			.user_btn{
+				display: inline-block;/*把链接便成为行-块级元素*/
+				width: 95px;
+				height: 33px;
+				line-height: 33px;/*当此属性的值与height一样时，文字上下居中*/
+				text-align: center;
+				background-color: #394dff;
+				color: white;
+				font-size: 0.9em;
+				text-decoration: none;/*去除下划线*/
+			}
+			/* 头像大小 */
+			#headpic{
+				width: 105px;
+			}
+			
+			/* 常见应用栏 */
+			#app_content{
+				display:flex;/* 弹性布局 */
+				flex-direction:row;/* 设置主轴的方向从左到右 */
+				width:100%;
+				flex-wrap: wrap;/* 自动换行 */
+				justify-content:space-between;	/* 上下对齐，不够就填充空格 */
+			}
+			#app_content a{
+				display:inline-flex;
+				flex-direction:row;
+				text-decoration: none;
+				font-size: 0.9em;
+				color: #474747;
+				width: 120px;
+				margin-left: 10px;
+				height: 28px;
+				line-height: 40px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+			}
+			#common_app a:hover{
+				color: #00aaff;
+				text-decoration: #00aaff;
+				text-decoration: underline;
+			}
+			.app_title{
+				height: 20px;
+				line-height: 25px;
+				display: inline-block;
+				margin-left: 5px;
+				width:120px;
+			}
+			.icon{
+				display: inline-block;
+				float: left;
+				width:30px;
+				height:30px;
+			}
+			/* 图书栏 */
+			#librart_item{
+				font-size: 0.9em;
+				color: #424242;
+				padding-left: 20px;
+			}
+			.red_txt{
+				color: red;
+			}
+			/* 学校备忘录栏 */
+			#scholl_memorandum{
+				height: 255px;
+			}
+			/* 备忘录内容区 */
+			.memorandum_content{
+				font-size: 0.8em;
+				color: #424242;
+				padding-left: 30px;
+				line-height: 28px;
+			}
+			.memorandum_content li a{
+				color: #474747;
+				text-decoration: none;
+			}
+			.memorandum_content li a:hover{
+				color:#2c50a3;
+				text-decoration: underline;
+			}
+			.memorandum_content li{
+				list-style: disc;
+				color: coral;
+			}
+			.memorandum_content li label{
+				color: #474747;
+				float: right;
+				margin-right:20px;
+				display: inline-block;
+			}
+			#school_memorandum_content{
+				font-size: 0.8em;
+				color: #424242;
+				padding-left: 30px;
+				line-height: 28px;
+			}
+			.more{
+				display: inline-block;
+				float: right;			/* 向右浮动 */
+			}
+			.more a{
+				font-size: 0.9em;
+				text-decoration: none;
+				color: #2c50a3;
+			}
+			.more a:visited{
+				color: #2c50a3;
+			}
+			.more a:hover{
+				text-decoration: underline;     /* 鼠标经过有下划线 */
+			}
+			/* 选项卡 */
+			.blue_tab{
+				width: 200px;
+				height: 50px;
+				background-color: #3d65c2;
+				border: #3d65c2 solid 1px;
+				margin-bottom: 15px;
+				display: flex;
+				flex-direction: row;
+			
+			}
+			.white_tab{
+				width: 200px;
+				height: 50px;
+				background-color: #ffffff;
+				border: #afafaf solid 1px;
+				margin-top: 15px;
+				display: flex;
+				flex-direction: row;
+			}
+			.white_circle{
+				width: 13px;
+				height: 13px;
+				background-color: white;
+				border: #3d65c2 solid 1px;
+				border-radius: 50px;  /* 圆角 */
+				margin: auto 10px;
+			}
+			.blue_tab .tab_title{
+				color: white;
+				font-weight: 600;
+			}
+			.tab_title{
+				width: 160px;
+				height: 25px;
+				line-height: 25px;
+				margin: auto 10px;
+			}
+			.right_content_top{
+				width: 1400px;
+				display: flex;
+				flex-direction: row;
+				font-size: 0.9em;
+				justify-content: space-around;
+			}
+			.input_title{
+				height: 26px;
+				line-height: 26px;
+			}
+			.input_box{
+				width: 150px;
+				height: 26px;
+				border: #a3989c solid 1px;
+				outline: none;
+			}
+			input:focus{
+				border: #2c50a3 solid 1px;
+				box-shadow: 0px 0px 5px #3d65c2;
+			}
+			.btn_search{
+				background-color: #2c50a3;
+				color: white;
+				border: none;
+				width: 60px;
+				border-radius: 5px;
+			}
+			.publish_edit{
+				height: 30px;
+				line-height: 30px;
+				width: 160px;
+				background-color: white;
+				border: #2c50a3 solid 1px;
+				text-align: center;
+				color: #2c50a3;
+				border-radius: 5px;
+			}
+			/* 按键 */
+			.right_content_footer{
+				float: right;
+			}
+			.right_content_footer a{
+				color: #2268ff;
+				border-radius: 5px;
+				border: #2268ff solid 1px;
+				padding: 5px;
+				font-size: 0.9em;
+				text-decoration: none;
+
+			}
+			.input_page{
+				height: 29px;
+				width: 80px;
+				border-radius: 5px;
+				border: #2268ff solid 1px;
+			}
+			.btn_topage{
+				background-color: #2268ff;
+				color: white;
+				border: none;
+				height: 29px;
+				width: 40px;
+				border-radius: 5px;
+			}
+			.notic_title_table{
+				width: 90%;
+				border: none;
+				background-color: lightgray;
+				margin: 10px auto;
+			}
+			.notic_title_table thead th{
+				background: #0055ff;
+				height: 50px;
+				line-height: 50px;
+				color: white;
+				font-weight: 900;
+				font-size: 18px;
+			}
+			.notic_title_table tbody tr td{
+				text-align: center;
+				line-height: 40px;
+				background-color: white;
+				padding-left: 10px;
+				font-size: 0.9em;
+			}
+/*          #content{
+				width:90%;
+				display:flex;
+				flex-direction:column;
+				margin:0px auto;
+				
+			} */
+			#notice_title{
+				text-align:center;
+				font-size:2em;
+				height:100px;
+				line-height:100px;
+			}
+			#notice_prom,
+			#notice_type{
+				text-align:center;
+				font-size:1em;
+				color:grey;
+				border-bottom:solid 1px grey;
+				height:50px;
+				line-height:50px;
+				
+			}
+			#notice_content{
+				margin-top:20px;
+			}
+			/* 详情页 */
+			#content1{
+				width:80%;
+				display:flex;
+				flex-direction:column;
+				margin:0px auto;
+			}
+			#notice_title{
+				text-align:center;
+				font-size:2em;
+				height:100px;
+				line-height:100px;
+			}
+			#notice_prom,
+			#notice_type{
+				text-align:center;
+				font-size:1em;
+				color:grey;
+				border-bottom:solid 0.5px grey;
+				height:50px;
+				line-height:50px;
+				
+			}
+			#notice_content{
+				margin-top:20px;
+				
+			}
+			
+			/* 标题列表页 */
+			#search_bar{
+				display:flex;/* 弹性布局 */
+				flex-direction:row;/* 弹性方向 */
+			}
+			#left_content{
+				width:200px;
+				display:flex;
+				flex-direction:column;
+				
+			}
+			#right_contrnt{
+				width:800px;
+				display:flex;
+				flex-direction:column;
+			}
+			#left_up{
+				width:160px;
+				height:50px;
+				line-height:50px;
+				background-color:#2c50a3;
+				text-align:center;
+				border:#2c50a3 solid 1px;
+				display:flex;
+				flex-direction:row;
+				justify-content:space-between;
+				margin-bottom:30px;
+				
+			}
+			#left_up a{
+				text-decoration: none;
+				color:white;
+				margin-left: 10px;
+			}
+			#left_up .circle,
+			#left_down .circle{
+				display:inline-block;
+				width:10px;
+				height:10px;
+				border-radius:50%;
+				background-color:white;
+				margin:auto 10px;
+				border:#000000 1px solid;
+			}
+			#left_down{
+				width:160px;
+				height:50px;
+				line-height:50px;
+				background-color:#ffffff;
+				text-align:center;
+				border: solid 1px;
+				display:flex;
+				flex-direction:row;
+				justify-content:space-between;
+				margin-bottom:30px;
+			}
+			#left_down a{
+				text-decoration: none;
+				color:#000000;
+				margin-left: 10px;
+			}
+			#input_notice_title,
+			#input_notice_publisher,
+			#input_notice_department{
+				width:150px;
+				height:25px;
+				line-height:25px;
+				margin-right:10px;
+			}
+			
+			#btn_search{
+				width:80px;
+				height:30px;
+				line-height:30px;
+				background-color:#2c50e3;
+				color:white;
+				border:none;
+				border-radius:5px;/* 圆角 */
+			}
+			#search_bar a{
+				border:#2c50e3 1px solid;
+				width:170px;
+				height:30px;
+				line-height:30px;
+				text-align:center;
+				color:#2c50e3;
+				text-decoration:none;/* 去掉下划线 */
+				margin-left:20px;
+				border-radius:5px;/* 圆角 */
+			}
+			#content{
+				display:flex;
+				flex-direction:row;
+				width:1200px;
+				margin:auto;
+			}
+/* 			#left_content{
+				width:200px;
+				display:flex;
+				flex-direction:column;
+			}
+			#right_content{
+				width:1000px;
+				display:flex;
+				flex-direction:column;
+			} */
+			
+			#list_table{
+				width:1000px;
+				background-color:#afafaf;
+				margin-top:20px;
+				margin-bottom:20px;
+			}
+			/* 操作栏按钮 */
+			#opt_banner a{
+				text-decoration:none;
+				color:#2c50e3;
+				height:28px;
+				line-height:28px;
+				width:50px;
+				text-align:center;
+				border:#2c50e3 1px solid;
+			}
+			
+			#notice_list{
+				
+			}

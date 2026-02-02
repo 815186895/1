@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>惠州城市职业学院</title>
+		<link href="CSS.css" rel="stylesheet" type="text/css"/>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script>
+			//向后端发起数据请求,获取本栏目的标题列表
+/* 			$(document).ready(function(){
+				
+				
+				$.post('/api/get.php',
+					{
+						
+					},
+					function(data,status){
+						var noticeList=JSON.parse(data);
+						
+					   }
+					}
+				);
+				
+				
+			}); */
+			//获取url中的栏目编号 cid=1&pid=1，可对比detail.html文件
+			var prop=location.search;
+			prop=prop.replace("?","");			//删除？号 只保留cid=xxx （cid=1cid=1&pid=1 [cid,1]）
+			var props=prop.split("&");			//用&为分隔符，[cid=1][pid=1]
+			var cid=props[0].split("=")[1];		//拿到cid=后面的数值
+			cid=Number(cid);					//吧id值从字符串转为数值
+			var pid=props[1].split("=")[1];		//拿到pid=后面的数值
+			pid=Number(pid);
+			
+			var isEnd=false;		//是否最后一条记录
+			//向后端发起数据请求,获取本栏目的标题列表，可对比index.html文件
+			$(document).ready(function(){
+				$.post('/api/getMoreNotice.php',		//向后端发起请求
+					{
+						cid:cid,							//数据为cid：
+						pid:pid
+					},
+					function(data,status){
+						if(data=='none data'){
+							isEnd=true;
+							return;
+						}
+						//console.log(data);					//测试输出后端返回的数据列表
+						//console.log(noticeList);
+						var noticeList=JSON.parse(data);	//把后端返回的JSON数据转成数组、
+						
+						//开始渲染
+						var leng=noticeList.length;
+						
+						for(var i=0;i<leng;i++){
+							var str="";
+							str += "<tr><td>" + noticeList[i]['1'] + "</td>";	//1=title
+							str += "<td>" + noticeList[i]['4'] + "</td>";		//4=publisher
+							str += "<td>" + noticeList[i]['5'] + "</td>";		//5=department
+							str += "<td>" + noticeList[i]['3'] + "</td><tr>";	//3=pubtime
+							$("#notice_list").append(str);	//append() 追加()
+							}
+						}
+					)}
+				);
+			//上一页
+			function toLastPage(){
+				if(pid>1){
+					pid-=1;
+					window.location.href="moreNotice.html?cid=" + cid + "&pid=" + pid;
+				}
+			}
+			//下一页
+			function toNextPage(){
+				if(isEnd==false){
+					pid+=1;
+					window.location.href="moreNotice.html?cid=" + cid + "&pid=" + pid;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<!-- logo栏 -->
+		<div class="logo-banner">
+			<div id="logo-bar">
+				<img src="pics/layout_set_logo.jpg"/>
+			</div>
+			<div id="navigate-bar">
+				<a class="nav-itme">主页(教师)</a>
+				<a class="nav-itme">办事大厅</a>
+				<a class="nav-itme">招生系统</a>
+				<a class="nav-itme">学工系统</a>
+				<a class="nav-itme">人事系统</a>
+				<a class="nav-itme">绩效系统</a>
+				<a class="nav-itme">电子邮件</a>
+			</div>
+		</div>
+		<!-- Banner栏 -->
+		<div id="banner">
+			<img width="100%" src="pics/banner2.png">
+		</div>
+		<!-- 内容栏 -->
+		<div id="content">
+			<!-- 左栏 -->
+			<div id="left_content">
+				<div id="left_up">
+					<a href="#">制度与流程</a>
+					<label class="circle"></label>
+				</div>
+				<div id="left_down">
+					<a href="#">通知与公告</a>
+					<label class="circle"></label>
+				</div>
+			</div>
+			<!-- 右栏 -->
+			<div id="right_content">
+				<!-- 查询栏 -->
+				<div id="search_bar">
+					<label>标题：</label> <input type="text" id="input_notice_title"/>
+					<label>发布人：</label> <input type="text" id="input_notice_publisher"/>
+					<label>发布部门：</label> <input type="text" id="input_notice_department"/>
+					<input type="button" id="btn_search" value="查询"/>
+					<a href="#">发布与编辑公告</a>
+				</div>
+				<!-- 标题列表 -->
+				<div id="title_list">
+					<table id="list_table">
+						<thead>
+							<th>标题</th>
+							<th>发布人</th>
+							<th>部门</th>
+							<th>日期</th>
+						</thead>
+						<tbody id="notice_list">
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					
+					
+				</div>
+				<!-- 操作栏 -->
+				<div id="opt_banner">
+					<a href="">首页</a>
+					<a href="javascript:void(0)" onclick="toLastPage()">上一页</a>
+					<input type="number" id="current_page"/>
+					<a href="javascript:void(0)" onclick="toNextPage()">下一页</a>
+					<a href="">末页</a>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+		<!-- 版权信息栏 -->
+		
+		
+		
+	</body>
+</html>

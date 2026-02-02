@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="CSS.css" type="text/css">
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script>
+			//先拿下url参数中栏目分类号
+			var href=window.location.href;
+			var prop=href.split("?")[1];		//获取URL参数与参数值
+			var propList=prop.split("&");	//参数名 c=1   p=1
+			var cValue=Number(propList[0].split("=")[1]);  //分类值
+			var pValue=Number(propList[1].split("=")[1]);   //页码值
+			// console.log(cValue+" "+pValue);
+			$(document).ready(function(){
+				//向后端发起第一页数据的请求
+				$.post("/api/getNoticeList.php",
+						{
+							pid:pValue,
+							cid:cValue
+						},
+						function(data,status){
+							// console.log(data);         //测试用，用于观察后端返回的数据
+							var list=JSON.parse(data);
+							var rows=list.length;
+							for(var i=0;i<rows;i++){
+								var dataRow="<tr><td>" + list[i]['title'] + "</td>";
+								dataRow +='<td>'+ list[i]['publisher'] +"</td>";
+								dataRow +="<td>" + list[i]['department'] +"</td>";
+								dataRow +="<td>" + list[i]['pubtime'] +"</td></tr>";
+								$("#list").append(dataRow);
+							}
+						}
+				);
+			});
+			//跳到上一页
+			function toLastPage(pValue){
+				if(pValue>1){
+					pValue=pValue-1;
+					location.href="noticelist.html?c="+cValue + "&p=" + pValue;
+				}
+			}
+			//跳到下一页
+			function toNextPage(pValue){
+					pValue=pValue+1;
+					location.href="noticelist.html?c="+cValue + "&p=" + pValue;
+				}
+		</script>
+	</head>
+	<body>
+		<div class="logo-banner">
+			<div id="logo-bar">
+				<img src="pics/layout_set_logo.jpg"/>
+			</div>
+			<div id="navigate-bar">
+				<a class="nav-itme">主页(教师)</a>
+				<a class="nav-itme">办事大厅</a>
+				<a class="nav-itme">招生系统</a>
+				<a class="nav-itme">学工系统</a>
+				<a class="nav-itme">人事系统</a>
+				<a class="nav-itme">绩效系统</a>
+				<a class="nav-itme">电子邮件</a>
+			</div>
+		</div>
+		<!-- Banner栏 -->
+		<div id="banner">
+			<img width="100%" src="pics/banner2.png">
+		</div>
+		<!-- 内容栏 -->
+		<div id="main">
+			<div class="left_content">
+				<div class="blue_tab">
+					<div class="tab_title">制度与流程</div>
+					<div class="white_circle"></div>
+				</div>
+				<div class="white_tab">
+					<div class="tab_title">通知公告</div>
+					<div class="white_circle"></div>
+				</div>
+			</div>
+			<div class="right_content">
+				<div class="right_content_top">
+					<div class="input_title">标题：</div><input type="text" class="input_box"/>
+					<div class="input_title">发布人：</div><input type="text" class="input_box"/>
+					<div class="input_title">发布部门：</div><input type="text" class="input_box"/>
+					<input type="submit" class="btn_search"/>
+					<div class="publish_edit">发布与编辑通知公告</div>
+				</div>
+				<div class="right_content_main">
+					<table class="notic_title_table">
+						<thead>
+							<th>标题</th>
+							<th>发布人</th>
+							<th>发布部门</th>
+							<th>日期</th>
+						</thead>
+						<tbody id="list">
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="right_content_footer">
+					<a href="">首页</a>
+					<a href="javascript:void(0)" onclick="toLastPage(pValue)">上一页</a>
+					<input type="text" class="input_page"/>
+					<input type="button" class="btn_topage" value="跳转"/>
+					<a href="javascript:void(0)" onclick="toNextPage(pValue)">下一页</a>
+					<a href="">末页</a>
+				</div>
+			</div>
+		</div>
+		<!-- 版权栏 -->
+		<div id="copy_right">版权所有 Copyright(C) 惠州城市职业学院 粤ICP备15007603号 地址：广东省惠州市惠城区三栋镇福长岭明德路1号 邮编：516025</br>
+		
+		技术支持：联奕科技有限公司</div>
+	</body>
+</html>
